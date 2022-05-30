@@ -83,4 +83,39 @@ contract Exchange is ERC20 {
         }
         return liquidity;
     }
+
+    /**
+     * @dev Returns the amount Eth/Complu tokens that would be returned to the user
+     * in the swap
+     */
+    function removeLiquidity(uint256 _amount)
+        public
+        returns (uint256, uint256)
+    {
+        require(_amount > 0, "_amount should be greater than zero");
+        uint256 ethReserve = address(this).balance;
+        uint256 _totalSupply = totalSupply();
+        // The amount of Eth that would be sent back to the user is based
+        // on a ratio
+        // Ratio is -> (Eth sent back to the user) / (current Eth reserve)
+        // = (amount of LP tokens that user wants to withdraw) / (total supply of LP tokens)
+        // Then by some maths -> (Eth sent back to the user)
+        // = (current Eth reserve * amount of LP tokens that user wants to withdraw) / (total supply of LP tokens)
+        uint256 ethAmount = (ethReserve * _amount) / _totalSupply;
+        // The amount of Complu token that would be sent back to the user is based
+        // on a ratio
+        // Ratio is -> (Complu sent back to the user) / (current Complu token reserve)
+        // = (amount of LP tokens that user wants to withdraw) / (total supply of LP tokens)
+        // Then by some maths -> (Complu sent back to the user)
+        // = (current Complu token reserve * amount of LP tokens that user wants to withdraw) / (total supply of LP tokens)
+        uint256 compluTokenAmount = (getReserve() * _amount) / _totalSupply;
+        // Burn the sent LP tokens from the user's wallet because they are already sent to
+        // remove liquidity
+        _burn(msg.sender, _amount);
+        // Transfer `ethAmount` of Eth from user's wallet to the contract
+        payable(msg.sender).transfer(ethAmount);
+        // Transfer `compluTokenAmount` of Complu tokens from the user's wallet to the contract
+        ERC20(compluTokenAddress).transfer(msg.sender, compluTokenAmount);
+        return (ethAmount, compluTokenAmount);
+    }
 }
