@@ -116,4 +116,23 @@ function addLiquidity(uint tokenAmount) public payable {
 
 Now we have LP-tokens, we can also use them to calculate how much underlying tokens to return when someone wants to withdraw their liquidity in exchange for their LP-tokens.
 
+#### Fees
+
+- Traders are already sending ether/tokens to the contract. Instead of asking for an explicit fee, we can just deduct some amount from the ether/tokens they are sending.
+- We can just add the fees to the reserve balance. This means, over time, the reserves will grow.
+- We can collect fees in the currency of the asset being deposited by the trader. Liquidity providers thus get a balanced amount of ether and tokens proportional to their share of LP-tokens.
+
+Uniswap takes a 0.03% fees from each swap. Let's say we take 1% to keep things simple. Adding fees to the contract is as simple as making a few edits to our price calculation formula:
+
+We had 
+`outputAmount = (outputReserve * inputAmount) / (inputReserve + inputAmount)`
+
+Now,
+
+`outputAmountWithFees = 0.99 * outputAmount`
+
+But, Solidity does not support floating point operations. So for Solidity we rewrite the formula as such:
+
+`outputAmountWithFees = (outputAmount * 99) / 100`
+
 
