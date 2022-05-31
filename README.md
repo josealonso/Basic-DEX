@@ -144,3 +144,22 @@ But, Solidity does not support floating point operations. So for Solidity we rew
 No need to generate any newer typings.
 Exchange Contract Address: 0xD8e77C29021b64347e3d9B3f0c9fD19915745a3a
 ```
+
+### Website
+
+- 
+```
+mkdir my-app
+cd my-app
+```
+
+- `npx create-next-app@latest`
+
+- To run the app
+
+```
+cd my-app
+yarn dev
+```
+
+- Now go to http://localhost:3000, your app should be running.
