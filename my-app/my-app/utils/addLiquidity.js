@@ -4,7 +4,7 @@ import {
     EXCHANGE_CONTRACT_ADDRESS,
     TOKEN_CONTRACT_ABI,
     TOKEN_CONTRACT_ADDRESS,
-} from "../constants";
+} from "../constants/index";
 
 /**
  * addLiquidity helps add liquidity to the exchange,

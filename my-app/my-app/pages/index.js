@@ -9,12 +9,14 @@ import {
   getEtherBalance,
   getLPTokensBalance,
   getReserveOfCLTokens,
-} from "../utils/getAmounts";
+} from "../utils/getAmount";
 import {
   getTokensAfterRemove,
   removeLiquidity,
 } from "../utils/removeLiquidity";
 import { swapTokens, getAmountOfTokensReceivedFromSwap } from "../utils/swap";
+import { Chains } from "../Chains";
+import { fromDecimalToHex } from "../utils/convert";
 
 export default function Home() {
   /** General state variables */
@@ -294,7 +296,7 @@ export default function Home() {
 
     // If user is not connected to the Mumbai network, let them know and throw an error
     const { chainId } = await web3Provider.getNetwork();
-    if (chainId !== 4) {
+    if (fromDecimalToHex(chainId) !== Chains.POLYGON_MUMBAI) {
       window.alert("Change the network to Mumbai");
       throw new Error("Change network to Mumbai");
     }
@@ -423,7 +425,7 @@ export default function Home() {
               />
               <div className={styles.inputDiv}>
                 {/* Convert the BigNumber to string using the formatEther function from ethers.js */}
-                {`You will get ${utils.formatEther(removeCD)} Crypto
+                {`You will get ${utils.formatEther(removeCL)} Crypto
               Dev Tokens and ${utils.formatEther(removeEther)} Eth`}
               </div>
               <button className={styles.button1} onClick={_removeLiquidity}>
