@@ -163,3 +163,7 @@ yarn dev
 ```
 
 - Now go to http://localhost:3000, your app should be running.
+
+- `yarn add web3modal`
+
+- `yarn add ethers`
