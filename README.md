@@ -136,3 +136,11 @@ But, Solidity does not support floating point operations. So for Solidity we rew
 `outputAmountWithFees = (outputAmount * 99) / 100`
 
 
+### Deploying the contract
+
+`npx hardhat run scripts/deploy.ts --network mumbai`
+
+```
+No need to generate any newer typings.
+Exchange Contract Address: 0xD8e77C29021b64347e3d9B3f0c9fD19915745a3a
+```

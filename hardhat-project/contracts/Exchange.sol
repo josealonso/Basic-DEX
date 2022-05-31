@@ -168,7 +168,7 @@ contract Exchange is ERC20 {
     /**
      * @dev Swaps Complu Tokens for Eth
      */
-    function cryptoDevTokenToEth(uint256 _tokensSold, uint256 _minEth) public {
+    function compluTokenToEth(uint256 _tokensSold, uint256 _minEth) public {
         uint256 tokenReserve = getReserve();
         // call the `getAmountOfTokens` to get the amount of Eth
         // that would be returned to the user after the swap
